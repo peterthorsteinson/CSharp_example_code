@@ -1,6 +1,6 @@
-```csharp
-FindShiftDistance_RotatedSortedArray.cs
+# FindShiftDistance_RotatedSortedArray.cs
 
+```csharp
 // Given a right-shifted sorted array [8, 10, 15, 3, 5, 7],
 // write a function to find the shift distance
 // (i.e. find shift in rotated sorted array)
