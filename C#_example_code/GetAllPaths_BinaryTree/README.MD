@@ -1,4 +1,4 @@
-# GetAllPaths_BinaryTree
+# GetAllPaths_BinaryTree.cs
 
 ```csharp
 // Get all paths of a binary tree
@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 
-public class BinarySearchTree
+public class GetAllPaths_BinaryTree
 {
     public class Node
     {
