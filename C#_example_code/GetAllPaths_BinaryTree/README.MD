@@ -1,4 +1,4 @@
-#GetAllPaths_BinaryTree
+# GetAllPaths_BinaryTree
 
 ```csharp
 // Get all paths of a binary tree
