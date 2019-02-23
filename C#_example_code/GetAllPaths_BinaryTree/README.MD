@@ -22,7 +22,7 @@ public class GetAllPaths_BinaryTree
     }
 
     Node root;
-    public BinarySearchTree()
+    public GetAllPaths_BinaryTree()
     {
         root = null;
     }
@@ -114,7 +114,7 @@ class Program
         }
         Console.WriteLine();
 
-        BinarySearchTree tree = new BinarySearchTree();
+        GetAllPaths_BinaryTree tree = new GetAllPaths_BinaryTree();
 
         // populate tree with sample data
         for (int i = 0; i < randoms_ints.Length; i++)
