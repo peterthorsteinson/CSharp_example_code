@@ -1,0 +1,10 @@
+using System;
+class MainClass
+{
+   static public void Main()
+   {
+     Func<int, int, bool> testForEquality = (x, y) => x == y;
+     Console.WriteLine("{0}", testForEquality(40, 2)); // False
+     Console.WriteLine("{0}", testForEquality(42, 42)); // True     
+   }
+}
