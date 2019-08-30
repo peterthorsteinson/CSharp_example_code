@@ -1,0 +1,26 @@
+// See: https://docs.microsoft.com/en-us/dotnet/standard/delegates-lambdas
+using System;
+using System.Linq;
+class Program
+{
+    static void Main()
+    {
+        var numbers = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+        // Enumerable.Sum extension method computes the sum of a sequence of numeric values
+        var sumOdds = numbers.Sum(delegate (int i) { return i % 2 == 0 ? 0 : i; });
+        Console.WriteLine(sumOdds); // 25
+
+        // Passing a delegate to sum using lambda syntax
+        var del = new Func<int, int>((i) => i % 2 == 0 ? 0 : i);
+        Console.WriteLine(numbers.Sum(i => del(i))); // 25
+
+        // The Select extension method performs a "map" operation
+        int [] numbers_plus_three = numbers.Select(x => x + 3).ToArray();
+        Array.ForEach(numbers_plus_three, Console.WriteLine);
+
+        // The Aggregate extension method performs a "reduce" operation
+        var sum = numbers.Aggregate((x, y) => x + y);
+        Console.WriteLine(sum); // 55
+    }
+}
