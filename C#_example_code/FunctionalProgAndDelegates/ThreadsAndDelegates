@@ -1,0 +1,45 @@
+using System;
+using System.Threading;
+namespace Events
+{
+    class EventSource
+    {
+        public event EventHandler MyEvent;
+        public EventSource()
+        {
+            Thread thread = new Thread(MyThread);
+            thread.Start();
+        }
+        void MyThread()
+        {
+            while (true)
+            {
+                Random random = new Random();
+                Thread.Sleep(random.Next(1000));
+                if (MyEvent != null)
+                {
+                    MyEvent.Invoke(this, EventArgs.Empty);
+                }
+            }
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            EventSource es = new EventSource();
+            es.MyEvent += MyEventHandler;
+
+            while (true)
+            {
+                Thread.Sleep(1000);
+                Console.WriteLine("Main");
+            }
+        }
+
+        private static void MyEventHandler(object sender, EventArgs e)
+        {
+            Console.WriteLine("MyEventHandler");
+        }
+    }
+}
