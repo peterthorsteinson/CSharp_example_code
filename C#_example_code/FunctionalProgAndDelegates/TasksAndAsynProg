@@ -1,0 +1,45 @@
+// based on https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async
+using System;
+using System.Threading.Tasks;
+
+class Program
+{
+    class Coffee { }
+    class Toast { }
+    static async Task<Coffee> PourCoffeeAsync()
+    {
+        await Task.Delay(100); // simluate coffee pouring wait time
+        return new Coffee();
+    }
+    static async Task<Toast> ToastBreadAsync(int number)
+    {
+        await Task.Delay(1000); // sinluate toasting wait time
+        Console.WriteLine($"{number} slices of bread are toasted.");
+        return new Toast();
+    }
+    static void ApplyButter(Toast toast)
+    {
+        Console.WriteLine("Toast is buttered.");
+    }
+    static void ApplyJam(Toast toast)
+    {
+        Console.WriteLine("Toast is jammed.");
+    }
+    async Task<Toast> MakeToastWithButterAndJamAsync(int number)
+    {
+        var toast = await ToastBreadAsync(number);
+        ApplyButter(toast);
+        ApplyJam(toast);
+        return toast;
+    }
+    static async Task Main()
+    {
+        Coffee cup = await PourCoffeeAsync();
+        Console.WriteLine("Coffee is ready");
+        Toast toast = await ToastBreadAsync(2);
+        ApplyButter(toast);
+        ApplyJam(toast);
+        Console.WriteLine("Toast is ready.");
+        Console.WriteLine("Breakfast is ready!");
+    }
+}
