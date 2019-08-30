@@ -1,0 +1,23 @@
+using System;
+using System.Linq;
+public class Simple {
+  public static void Main() {
+    string[] names = { "Jane", "Stan", "Shelly", "Fran", "Ahemed", "John", "Pat", "David","Mary","Sally" };
+	  
+    Console.WriteLine("LINQ query expression syntax");
+    var  query1 = from name in names 
+		where name.Length == 4
+		orderby name
+		select name.ToUpper();
+    Console.WriteLine("Type: " + query1.GetType());
+    foreach (string item in query1)
+      Console.WriteLine("   " + item);
+	  
+	Console.WriteLine("LINQ query expression syntax");
+	var query2 = names.Where(name => name.Length == 4).OrderBy(name => name).Select(name => name);
+    Console.WriteLine("Type: " + query2.GetType());
+    foreach (string item in query2)
+      Console.WriteLine("   " + item);
+	  
+  }
+}
