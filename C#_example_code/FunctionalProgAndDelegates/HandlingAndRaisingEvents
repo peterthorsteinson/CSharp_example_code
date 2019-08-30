@@ -1,0 +1,61 @@
+// Handling and raising events: https://docs.microsoft.com/en-us/dotnet/standard/events
+// NOTE: these instructions are not formal or rigorous. Ask questions to clear up any necessary details.
+// Write a console app that does the following:
+// 1. Use the basic code snippets found at the URL above.
+// 2. Add a Start method to the Counter class that takes an int named count as a parameter.
+// 3. Make the Start method enter a while loop that iterates count times and then invokes the delegate.
+// 4. Make the loop call Sleep(1000) to simulate work that takes time to complete in the loop.
+// 5. Implement the event args parameter to be initialized with the loop counter and the current time when the loop completes.
+// 6. Display the output in the event handler to display the data in the event arg.
+// 7. Create the Counter object, wire up the event handler, and start the counter in the Main method.
+// Here is one possible solution:
+
+using System;
+using System.Threading;
+
+namespace DelegatesAndEvents
+{
+    class Counter {
+        public event ThresholdReachedEventHandler ThresholdReached;
+        protected virtual void OnThresholdReached(ThresholdReachedEventArgs e)
+        {
+            ThresholdReachedEventHandler handler = ThresholdReached;
+            handler?.Invoke(this, e);
+        }
+        public void Start(int count)
+        {
+            int i = 0;
+            while (i < count)
+            {
+                Thread.Sleep(1000);
+                i++;
+            }
+            ThresholdReachedEventArgs e = new ThresholdReachedEventArgs() { Threshold = i, TimeReached = DateTime.Now };
+            OnThresholdReached(e);
+        }
+    }
+
+    public delegate void ThresholdReachedEventHandler(object sender, ThresholdReachedEventArgs e);
+
+    public class ThresholdReachedEventArgs : EventArgs
+    {
+        public int Threshold { get; set; }
+        public DateTime TimeReached { get; set; }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var c = new Counter();
+            c.ThresholdReached += c_ThresholdReached;
+            c.Start(3);
+        }
+        static void c_ThresholdReached(object sender, ThresholdReachedEventArgs e)
+        {
+            Console.WriteLine("The threshold was reached.");
+            Console.WriteLine("Threashold: " + e.Threshold);
+            Console.WriteLine("TimeReached: " + e.TimeReached);
+        }
+    }
+}
