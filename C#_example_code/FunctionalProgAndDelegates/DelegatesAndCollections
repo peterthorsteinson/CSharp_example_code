@@ -1,0 +1,44 @@
+// based on http://www.csharp-examples.net/sort-array
+using System;
+using System.Collections.Generic;
+using System.Linq;
+class Program
+{
+    class User
+    {
+        public User(string name, int age) { this.name = name; this.age = age; }
+        public String name;
+        public int age;
+    }
+    static void Main()
+    {
+        IEnumerable<int> ints = new List<int> { 1, 2, 3, 4, 5 };
+        int result = ints.Sum();
+        Console.Write(result); // 15
+        Console.WriteLine();
+        int[] intArray = new int[5] { 18, 10, 26, 2, 5 };
+        Array.Sort(intArray);
+        foreach (int i in intArray) Console.Write(i + " "); // 2 5 10 18 26
+        Console.WriteLine();
+        string[] stringArray = new string[5] { "X", "B", "Z", "Y", "A" };
+        Array.Sort(stringArray);
+        // write array
+        foreach (string str in stringArray) Console.Write(str + " "); // A B X Y Z
+        Console.WriteLine();
+        User[] users = new User[] {
+            new User("Betty", 23),
+            new User("Susan", 20),
+            new User("Lisa", 25) };
+        Array.Sort(users, delegate (User user1, User user2)
+        {
+            return user1.name.CompareTo(user2.name);
+        });
+        foreach (User user in users) Console.Write(user.name + user.age + " "); // Betty23 Lisa25 Susan20
+        Console.WriteLine();
+        Array.Sort(users, delegate (User user1, User user2)
+        {
+            return user1.age.CompareTo(user2.age); // (user1.Age - user2.Age)
+        });
+        foreach (User user in users) Console.Write(user.name + user.age + " "); // Susan20 Betty23 Lisa25
+    }
+}
