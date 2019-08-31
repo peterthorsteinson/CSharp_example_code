@@ -1,0 +1,26 @@
+// Using Delegates (C# Programming Guide)
+// https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/delegates/using-delegates
+
+using System;
+
+namespace CallMethodViaDelegate
+{
+    public delegate void Del(string message);
+
+    class Program
+    {
+        public static void DelegateMethod(string message)
+        {
+            Console.WriteLine(message);
+        }
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Main");
+            Program.DelegateMethod("Calling method directly by method name.");
+
+            Del handler = DelegateMethod;
+            handler("Calling method indirectly via delegate type variable.");
+        }
+    }
+}
