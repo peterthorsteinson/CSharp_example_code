@@ -1,26 +1,33 @@
-// Using Delegates (C# Programming Guide)
-// https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/delegates/using-delegates
-
+// Delegates and Scope
 using System;
-
-namespace CallMethodViaDelegate
+public delegate void MyDeleage();
+class MyClass
 {
-    public delegate void Del(string message);
-
-    class Program
+    // private method
+    private void privateMethod()
     {
-        public static void DelegateMethod(string message)
-        {
-            Console.WriteLine(message);
-        }
-
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Main");
-            Program.DelegateMethod("Calling method directly by method name.");
-
-            Del handler = DelegateMethod;
-            handler("Calling method indirectly via delegate type variable.");
-        }
+        Console.WriteLine("Private method called via delegate");
+    }
+    // public method returns private method
+    public MyDeleage getPrivateDelegate()
+    {
+        return new MyDeleage(privateMethod);
+    }
+    public Action getDelegateWithClosure()
+    {
+        int closureVariable = 42;
+        Action myLamda = () => Console.WriteLine("Delegate with closure called: " + closureVariable);
+        return myLamda;
+    }
+}
+class Program
+{
+    static void Main()
+    {
+        // indirectly call private method via delegate
+        MyClass mc = new MyClass();
+        mc.getPrivateDelegate()();
+        // access variable in closure
+        mc.getDelegateWithClosure()();
     }
 }
